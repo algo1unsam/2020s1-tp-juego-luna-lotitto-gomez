@@ -1,0 +1,20 @@
+import juego.*
+import Nivel.*
+import wollok.game.*
+import Enemigos.*
+import cornelio.*
+import palanca.*
+import pantallaInicial.*
+import disparo.*
+
+describe "test del juego"{
+	
+	test "cargo el juego y cambia de pantalla inicial a niveluno"{
+		juego.cargar()
+		
+		
+		assert.equals(nivelUno, juego.nivel())
+	}
+	
+	
+}
