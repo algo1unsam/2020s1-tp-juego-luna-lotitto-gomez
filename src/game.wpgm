@@ -3,11 +3,17 @@ import juego.*
 import Enemigos.*
 import Nivel.*
 import cornelio.*
+// TODO: agregar items
+// TODO: chequear condiciones generales para el segundo nivel
+// TODO: imagenes: palanca, cafiaspirina,
+// TODO: hacer q cornelio dispare ?
+//TODO: movimiento de los enemigos, q no se vayan de pantalla
 
 program game
 {
 	game.width(15)
-	game.height(10)
+	
+	game.height(10)	
 	game.title("Cornelio")
 	juego.cargar()
 	

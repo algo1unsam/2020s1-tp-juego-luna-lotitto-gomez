@@ -31,5 +31,6 @@ class Enemigo
 			disparo.moverDisparo()
 		}
 	}
+	method subirVitalidad(){}
 	
 }

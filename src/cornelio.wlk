@@ -9,7 +9,7 @@ object cornelio
 	
 	method disparar(){
 		if(disparo == 0){
-			disparo = new Disparo( position = self.position())
+			disparo = new DisparoCornelio( position = self.position())
 			disparo.aparecer()
 			
 		}
@@ -26,7 +26,7 @@ object cornelio
 		}
 		
 	}	
-
+	
 	
 	method perderVitalidad()
 	{
@@ -37,5 +37,24 @@ object cornelio
 		vitalidad += 100
 		objeto.desaparecer()
 	}
-	
+	method moverDisparo()
+	{
+		if(disparo != 0)
+		{
+			disparo.moverDisparo()
+		}
+	}
+
+	method puedeMoverse(unaOrientacion){
+		return juego.margenes().all{margen => unaOrientacion.x() != margen} and juego.limites().all{limite => unaOrientacion.y() != limite}
+	}
+	method moverse(orientacion){
+		if(self.puedeMoverse(orientacion)){
+			self.position(orientacion)
+			
+		} 
+		
+	}
 }
+
+
