@@ -5,7 +5,7 @@ import Enemigos.*
 import Nivel.*
 import juego.*
 object arbitro {
-
+//
 	method validarImpactos(){
 					
 			if(cornelio.disparo() != 0){
