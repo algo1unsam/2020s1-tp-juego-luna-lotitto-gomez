@@ -11,8 +11,10 @@ object pantallaInicial {
 		game.boardGround(self.image())
 		
 		keyboard.enter().onPressDo{ 
+			
 			juego.cambiarNivel(nivelUno)
 			juego.cargar()
+		
 		}
 	}
 

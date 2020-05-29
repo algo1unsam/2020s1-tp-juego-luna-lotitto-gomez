@@ -1,7 +1,7 @@
 import wollok.game.*
 import items.*
 import juego.*
-object palanca inherits ItemEstatico(image = "popcorn.png", position =new Position(x=13,  y=8))
+object palanca inherits ItemEstatico(image = "Palanca.png", position =new Position(x=14,  y=8))
 {	
 	var activada = false
 	method estasActivada (){
@@ -10,7 +10,7 @@ object palanca inherits ItemEstatico(image = "popcorn.png", position =new Positi
 	method bajar(){
 		game.say(self, "Apretar F para activar la palanca")
 		
-	keyboard.f().onPressDo{self.image("grano.png")
+	keyboard.f().onPressDo{self.image("PalancaBaja.png")
 		activada = true
 	}
 	}

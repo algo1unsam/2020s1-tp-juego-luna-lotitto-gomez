@@ -8,13 +8,14 @@ import cornelio.*
 // TODO: imagenes: palanca, cafiaspirina,
 // TODO: hacer q cornelio dispare ?
 //TODO: movimiento de los enemigos, q no se vayan de pantalla
-
+// TODO: revisar bien  el modelado del disparo, y validaciones del mismo
 program game
 {
 	game.width(15)
-	
 	game.height(10)	
 	game.title("Cornelio")
+	
+	 //INICIO
 	juego.cargar()
 	
 	

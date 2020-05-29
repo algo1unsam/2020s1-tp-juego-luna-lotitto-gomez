@@ -10,12 +10,16 @@ class Disparo
 	var property position
 	var property margenIzquierdo = 1
 	var property margenDerecho = 14
+	var property sonidoDisparo = 0
 		//TODO: trucho
-		method subirVitalidad(){
+		method subirVitalidad(param){
 			
 		}
 		method aparecer()
 		{
+			game.sound(sonidoDisparo)
+			sonidoDisparo.volume(0.3)
+			sonidoDisparo.play()
 			game.addVisual(self)
 				
 		}
@@ -29,6 +33,9 @@ class Disparo
 
 class DisparoCornelio inherits Disparo
 {
+	override method sonidoDisparo() {
+		sonidoDisparo = "disparoCornelio.mp3"
+	}
 	override method moverDisparo(){
 		if(!self.fueraDeEscena() )
 		{
@@ -56,24 +63,38 @@ class DisparoCornelio inherits Disparo
 
 class DisparoEnemigo inherits Disparo
 {
+	override method sonidoDisparo(){
+		sonidoDisparo = "cornelioDisparo.mp3"
+	}
+	
 	override method moverDisparo()
 	{	
 		// TODO: agregar validaciones
-		if(!self.fueraDeEscena())
+	  //TODO: arreglar
+	  if(game.hasVisual(self) or juego.nivel().todosLosEnemigos().any{enemigo => enemigo.tieneDisparo()})
+		{
+			if(!self.fueraDeEscena())
 		{
 			self.position(self.position().left(1))	
 		}else{self.desaparecer()}	
-			
+		}		
 	}
 		override method desaparecer()
 		{	
 
-			var shooter =juego.nivel().todosLosEnemigos().find{enemigo => enemigo.disparo() == self}
-			shooter.disparo(0)
-			// tomamos '0' como pistola descargada 
-			game.removeVisual(self)
-			
+			if (juego.nivel().todosLosEnemigos().any{enemigo => enemigo.disparo() == self}){
+				var shooter =juego.nivel().todosLosEnemigos().find{enemigo => enemigo.disparo() == self}
+				sonidoDisparo.stop()
+				shooter.disparo(0)
+				// tomamos '0' como pistola descargada 
+				game.removeVisual(self)
+					
+			}
+						
 		}
 		override	method fueraDeEscena() =  self.position().x() <= margenIzquierdo
-		override method impactar(){}	
+		override method impactar(){
+
+			self.desaparecer()
+		}	
 }

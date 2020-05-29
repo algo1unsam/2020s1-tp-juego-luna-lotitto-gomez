@@ -9,11 +9,13 @@ object cornelio
 	
 	method disparar(){
 		if(disparo == 0){
-			disparo = new DisparoCornelio( position = self.position())
+			disparo = new DisparoCornelio(image = "grano.png", position = self.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 			disparo.aparecer()
 			
 		}
 	}
+	
+	// recibir disparo
 	method colisionaCon(objeto)
 	{	
 		var shot = (juego.nivel()).todosLosEnemigos().map{enemigo => enemigo.disparo()}
@@ -30,7 +32,7 @@ object cornelio
 	
 	method perderVitalidad()
 	{
-		vitalidad -= 10
+		vitalidad = 0.min(vitalidad - 10)
 			
 	}
 	method subirVitalidad(objeto){

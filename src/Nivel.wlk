@@ -16,7 +16,7 @@ class Nivel
 	var property enemigos3 = []
 	var property position = game.at(0,0)
 	var property siguienteNivel = 0
-
+	var property theme = ""
 	method image() = ""
 	method cargarItems(){
 	
@@ -31,9 +31,16 @@ class Nivel
 		self.todosLosEnemigos().forEach{enemigo => game.addVisual(enemigo)
 			
 		}
+	}
+	method cargarSonido(){
+		
+		theme.play()
+		theme.volume(0.5)
+		theme.shouldLoop(true)
 	}		
 	method cargar(){
 		game.addVisual(self)
+		//self.cargarSonido()
 		self.cargarItems()
 		game.addVisual(cornelio)
 		game.showAttributes(cornelio)
@@ -51,21 +58,25 @@ class Nivel
 	
 	}
 	method finalizar (){
+		theme.stop()
 		game.clear()
 		juego.cambiarNivel(siguienteNivel)
 		juego.cargar()
 		
+		
 	}
 }
 
-object nivelUno inherits Nivel(siguienteNivel = nivelDos,itemsEstaticos = [palanca], itemsDinamicos = [cafiaspirina])
+object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"),siguienteNivel = nivelDos,itemsEstaticos = [palanca], itemsDinamicos = [cafiaspirina])
 {	
 	
-	
+
 	override method image () = "nivel1-fondo.png"
 	
 	override method validarFinal (){
+	
 			if (self.todosLosEnemigos().isEmpty() and palanca.estasActivada()) self.finalizar()
+	
 	}
 	
 	override method cargarEnemigos()
@@ -82,9 +93,9 @@ object nivelUno inherits Nivel(siguienteNivel = nivelDos,itemsEstaticos = [palan
 	{
 		self.todosLosEnemigos().forEach{ enemigo=>
 			
-			game.onTick(2000,"caminar",{enemigo.caminar()})
+			game.onTick(500,"caminar",{enemigo.caminar()})
 			game.onTick(1000, "disparar",{enemigo.disparar()})
-			game.onTick(300, "moverDisparo",{enemigo.moverDisparo()})
+			game.onTick(200, "moverDisparo",{enemigo.moverDisparo()})
 				
 		}
 		
@@ -94,13 +105,15 @@ object nivelUno inherits Nivel(siguienteNivel = nivelDos,itemsEstaticos = [palan
 		itemsDinamicos.forEach{item => game.onTick(item.tiempo(),"mover", {item.moverse()})
 			game.onCollideDo(item, {objeto => objeto.subirVitalidad(item)})
 		}
-		game.onTick(0,"vas",{arbitro.validarImpactos()})
+		game.onTick(0,"validar impactos",{arbitro.validarImpactos()})
 		game.onTick(0,"finalizar juego", {self.validarFinal()})	
 	}
 	
 
 	
 }
-object nivelDos inherits Nivel {
-	override method image() = "k.png"
+object nivelDos inherits Nivel(theme =game.sound("CorneliusGameNivel1Theme.mp3")) {
+
+	override method image() = "nivel2-fondo.jpeg"
+	
 }
