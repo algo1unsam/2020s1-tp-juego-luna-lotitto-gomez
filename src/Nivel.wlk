@@ -65,6 +65,24 @@ class Nivel
 		
 		
 	}
+	method perder(){
+		if (cornelio.vitalidad() == 0){
+			game.clear()
+			// poner sonido de game over
+			gameOver.cargar()
+			
+		}
+	}
+	
+	method restart(){
+		cornelio.disparo(0)
+		cornelio.vitalidad(20)
+		cornelio.position(new Position(x=0,y=3))
+		enemigos1.clear()
+		enemigos2.clear()
+		enemigos3.clear()
+		palanca.alta(true)
+	}
 }
 
 object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"),siguienteNivel = nivelDos,itemsEstaticos = [palanca], itemsDinamicos = [cafiaspirina])
@@ -106,7 +124,8 @@ object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"
 			game.onCollideDo(item, {objeto => objeto.subirVitalidad(item)})
 		}
 		game.onTick(0,"validar impactos",{arbitro.validarImpactos()})
-		game.onTick(0,"finalizar juego", {self.validarFinal()})	
+		game.onTick(0,"finalizar juego", {self.validarFinal()})
+		game.onTick(0,"morir",{ self.perder()})	
 	}
 	
 

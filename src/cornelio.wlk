@@ -3,7 +3,7 @@ import wollok.game.*
 import juego.*
 object cornelio
 {	var property position = new Position(x =0 , y =3)
-	var property vitalidad = 300 
+	var property vitalidad = 20 
 	var property  disparo = 0
 	var property image = "cornelioL.png"
 	
@@ -32,7 +32,7 @@ object cornelio
 	
 	method perderVitalidad()
 	{
-		vitalidad = 0.min(vitalidad - 10)
+		vitalidad = 0.max(vitalidad - 10)
 			
 	}
 	method subirVitalidad(objeto){

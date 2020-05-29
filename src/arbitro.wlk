@@ -32,8 +32,9 @@ object arbitro {
 			}
 	}	
 	//TODO: validar tocar items
-	method validarItems(){
-		
-	}
+	
+	//cargar condiciones por nivel
+	
+
 	
 }

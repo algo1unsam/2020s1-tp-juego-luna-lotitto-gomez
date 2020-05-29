@@ -5,7 +5,7 @@ import Nivel.*
 import cornelio.*
 // TODO: agregar items
 // TODO: chequear condiciones generales para el segundo nivel
-// TODO: imagenes: palanca, cafiaspirina,
+// TODO: imagenes: cafiaspirina,
 // TODO: hacer q cornelio dispare ?
 //TODO: movimiento de los enemigos, q no se vayan de pantalla
 // TODO: revisar bien  el modelado del disparo, y validaciones del mismo

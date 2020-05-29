@@ -16,6 +16,10 @@ object juego {
 	method cambiarNivel(_nuevoNivel) {
 		nivel = _nuevoNivel
 	}
+	method restart (){
+		nivel.restart()
+		self.cargar()
+	}
 
 }
 
