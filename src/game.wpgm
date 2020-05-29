@@ -5,10 +5,11 @@ import Nivel.*
 import cornelio.*
 // TODO: agregar items
 // TODO: chequear condiciones generales para el segundo nivel
-// TODO: imagenes: cafiaspirina,
-// TODO: hacer q cornelio dispare ?
-//TODO: movimiento de los enemigos, q no se vayan de pantalla
+// TODO: imagenes: cafiaspirina, disparo enemigos
+//TODO: sonido : nivel2 theme, 
 // TODO: revisar bien  el modelado del disparo, y validaciones del mismo
+// TODO: diferencia arbitro/cargarcondiciones de nivel
+
 program game
 {
 	game.width(15)
