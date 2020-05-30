@@ -3,6 +3,8 @@ import juego.*
 import Enemigos.*
 import Nivel.*
 import cornelio.*
+import frutilla.*
+// PROBLEMA : cuando se reinicia el juego, se tilda porqe el sonido intenta reproducirse de nuevo
 // TODO: agregar items
 // TODO: chequear condiciones generales para el segundo nivel
 // TODO: imagenes: cafiaspirina, disparo enemigos

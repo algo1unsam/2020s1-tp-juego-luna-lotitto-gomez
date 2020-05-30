@@ -62,7 +62,8 @@ class DisparoCornelio inherits Disparo
 }
 
 class DisparoEnemigo inherits Disparo
-{
+{	
+	override method image () = "disparoEnemigo.png"
 	override method sonidoDisparo(){
 		sonidoDisparo = "cornelioDisparo.mp3"
 	}

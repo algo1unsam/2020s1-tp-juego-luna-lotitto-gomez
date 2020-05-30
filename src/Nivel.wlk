@@ -7,6 +7,7 @@ import palanca.*
 import items.*
 import comandos.*
 import arbitro.*
+import frutilla.*
 
 class Nivel
 {	var property itemsDinamicos = []
@@ -40,10 +41,11 @@ class Nivel
 	}		
 	method cargar(){
 		game.addVisual(self)
-		//self.cargarSonido()
+		self.cargarSonido()
 		self.cargarItems()
 		game.addVisual(cornelio)
 		game.showAttributes(cornelio)
+		game.addVisual(frutilla)
 		self.cargarEnemigos()
 		//TODO: agregar power ups?, palanca?, items de ayuda?
 		self.cargarCondiciones()
