@@ -4,14 +4,16 @@ import Enemigos.*
 import Nivel.*
 import cornelio.*
 import frutilla.*
-// PROBLEMA : cuando se reinicia el juego, se tilda porqe el sonido intenta reproducirse de nuevo
-// TODO: agregar items
-// TODO: chequear condiciones generales para el segundo nivel
-// TODO: imagenes: cafiaspirina, disparo enemigos
-//TODO: sonido : nivel2 theme, 
-// TODO: revisar bien  el modelado del disparo, y validaciones del mismo
-// TODO: diferencia arbitro/cargarcondiciones de nivel
 
+//TODO: SEGUIR NIVEL DOS
+//TODO: chequear que la frutilla no disparaba
+//TODO: imagenes: semillas frutillas,
+//TODO: instncia disparo frutilla
+//TODO: cambio de aspecto en frutilla
+//TODO: sonido : nivel2 theme
+//TODO: hacer cambio de aspecto de cornelio -----composicion-- cambios de estado
+
+ 
 program game
 {
 	game.width(15)

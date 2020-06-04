@@ -4,6 +4,7 @@ import juego.*
 object palanca inherits ItemEstatico(image = "Palanca.png", position =new Position(x=14,  y=8))
 {	
 	var property alta = true
+	
 	override method image(){
 		return if(alta) {"Palanca.png"} else{"PalancaBaja.png"}
 	}
