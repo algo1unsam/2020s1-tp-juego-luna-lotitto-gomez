@@ -53,13 +53,13 @@ class Nivel {
 	}
 
 	method cargar() {
-		game.addVisual(self)
+		game.addVisual(self) //TODO: Estaría bueno no meter el nivel en el juego, y pasar el fondo a otro.
 		self.cargarSonido()
 		self.cargarItems()
 		game.addVisual(cornelio)
 		game.showAttributes(cornelio)
 		self.cargarEnemigos()
-			// TODO: agregar power ups?, palanca?, items de ayuda?
+		// TODO: agregar power ups?, palanca?, items de ayuda?
 		self.cargarCondiciones()
 		comandos.cargar()
 	}
@@ -95,9 +95,11 @@ class Nivel {
 	}
 
 	method restart() {
+		// TODO: cornelio.restart()
 		cornelio.disparo(0)
 		cornelio.vitalidad(100)
 		cornelio.position(new Position(x = 0, y = 3))
+		/////////// 
 		enemigos1.clear()
 		enemigos2.clear()
 		enemigos3.clear()

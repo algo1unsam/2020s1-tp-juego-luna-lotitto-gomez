@@ -5,8 +5,8 @@ import juego.*
 object cornelio {
 
 	var property position = new Position(x = 0, y = 3)
-	var property vitalidad = 100000
-	var property disparo = 0 
+	var property vitalidad = 1
+	var property disparo = 0 // TODO: Esto podría un flag booleano
 	var property image = "cornelioL.png"
 	
 
@@ -41,6 +41,7 @@ object cornelio {
 		}
 	}
 
+	// TODO: Si el juego conoce los márgenes, entonces preguntémosle a él si cornelio se puede mover.
 	method puedeMoverse(unaOrientacion) {
 		return juego.margenes().all{ margen => unaOrientacion.x() != margen } and juego.limites().all{ limite => unaOrientacion.y() != limite }
 	}

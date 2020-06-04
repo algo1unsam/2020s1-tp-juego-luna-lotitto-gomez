@@ -9,6 +9,8 @@ class Disparo {
 
 	var property image = ""
 	var property position
+	
+	// TODO: Los márgenes y límites están en el objeto juego, debería usarse ese objeto.
 	var property margenIzquierdo = 1
 	var property margenDerecho = 14
 	var property limiteInferior = 0
@@ -27,6 +29,9 @@ class Disparo {
 		sonidoDisparo.volume(0.1)
 		sonidoDisparo.play()
 		game.addVisual(self)
+		// TODO: Para pensar: que el disparo sepa moverse, impactar y desaparecer
+		// game.onTick(300, "mover disparo" + self.identity().toString(), { self.moverDisparo() })
+		// También se podría configurar la colisión acá.
 	}
 
 	method moverDisparo()
@@ -37,6 +42,11 @@ class Disparo {
 	method fueraDeEscena()
 
 	method desaparecer()
+// TODO:
+//	{ 
+//		game.removeTickEvent("mover disparo" + self.identity().toString())
+//		game.removeVisual(self)	
+//	}
 
 }
 
@@ -73,6 +83,7 @@ class DisparoCornelio inherits Disparo {
 	override method fueraDeEscena() = self.position().x() >= margenDerecho
 
 	method impactar(objeto) {
+		//TODO: DELEGAR juego.nivel().eliminar(enemigo) 
 		juego.nivel().enemigos1().remove(objeto)
 		juego.nivel().enemigos2().remove(objeto)
 		juego.nivel().enemigos3().remove(objeto)
@@ -85,6 +96,7 @@ class DisparoCornelio inherits Disparo {
 }
 class DisparoCornelio2 inherits DisparoCornelio{
 	
+	// TODO: Pensar en abstraer la lógica de la dirección del disparo aprovechando los objetos direcciones.
 	override method moverDisparo() {
 		if (!self.fueraDeEscena()) {
 			self.position(self.position().up(1))

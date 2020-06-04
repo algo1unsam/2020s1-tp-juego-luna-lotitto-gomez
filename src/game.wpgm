@@ -4,6 +4,7 @@ import Enemigos.*
 import Nivel.*
 import cornelio.*
 import frutilla.*
+import pantallaInicial.*
 
 //TODO: SEGUIR NIVEL DOS
 //TODO: chequear que la frutilla no disparaba
@@ -22,7 +23,6 @@ program game
 	
 	 //INICIO
 	juego.cargar()
-	
 	
 	game.start()
 	

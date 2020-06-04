@@ -60,6 +60,7 @@ class Enemigo {
 	}
 
 	method cambiarOrientacion() {
+		// TODO: Esto se lo podemos pedir a la dirección actual? direccion = direccion.opuesto() 
 		if (direccion == izquierda) direccion = derecha else direccion = izquierda
 	}
 	

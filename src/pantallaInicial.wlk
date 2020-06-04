@@ -29,11 +29,11 @@ object pantallaInicial  inherits Pantalla{
 		game.addVisual(self)		
 		game.addVisual(pressStart)
 		game.onTick(200,"cambiarImagen",{pressStart.cambiarImagen()})
-		keyboard.enter().onPressDo{ 
+		keyboard.enter().onPressDo{
 			// consultar si hace falta borrar imagenes
-			juego.cambiarNivel(nivelDos)	
-			game.removeVisual(pressStart)
-			game.removeVisual(self)
+			juego.cambiarNivel(nivelUno)	
+//			game.removeVisual(pressStart)
+//			game.removeVisual(self)
 			game.clear()
 			juego.cargar()
 		
@@ -62,7 +62,7 @@ object gameOver inherits Pantalla{
 		game.onTick(200,"cambiarImagen",{pressStartChico.cambiarImagen()})
 
 		keyboard.enter().onPressDo{ 
-			// funciona?
+			// funciona? Sí!
 			theme.pause()
 			game.removeVisual(pressStartChico)
 			game.removeVisual(self)
