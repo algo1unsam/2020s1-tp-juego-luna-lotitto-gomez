@@ -7,9 +7,8 @@ object juego {
 
 	var property nivel = pantallaInicial
 	// cheuqear margenes y limites, necesario?
-	const property margenes = [ -1, 15 ]
-	const property limites = [ -1, 9 ]
-
+	const property limites = [-1,10]
+	const property margenes = [-1,15]
 	method cargar() {
 		nivel.cargar()
 	}
@@ -20,6 +19,9 @@ object juego {
 	method restart (){
 		nivel.restart()
 		self.cargar()
+	}
+	method puedeMoverse(orientacion){
+		return !margenes.contains(orientacion.x()) and !limites.contains(orientacion.y())
 	}
 
 }

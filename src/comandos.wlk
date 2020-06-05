@@ -26,7 +26,8 @@ object izquierda {
 	var property imagen = "cornelioL.png"
 	method mover(objeto){
 		objeto.moverse(objeto.position().left(1))
-	}		
+	}
+	method opuesto() =  derecha
 }
 
 object derecha {
@@ -34,7 +35,9 @@ object derecha {
 	var property imagen = "cornelioR.png"
 	method mover(objeto){
 		objeto.moverse(objeto.position().right(1))
-	}		
+	}
+	
+	method opuesto() =  izquierda		
 }
 
 object arriba {
@@ -42,12 +45,14 @@ object arriba {
 	var property imagen = "cornelioR.png"
 	method mover(objeto){
 		objeto.moverse(objeto.position().up(1))
-	}		
+	}
+	method opuesto() =  abajo		
 }
 object abajo {
 
 	var property imagen = "cornelioR.png"
 	method mover(objeto){
 		objeto.moverse(objeto.position().down(1))
-	}		
+	}
+	method opuesto() =  arriba		
 }

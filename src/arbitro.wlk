@@ -12,15 +12,16 @@ object arbitro {
 	
 	//COLISIONES
 	
-	 
+	method validarDisparo(disparo){
+		
+		game.onCollide(disparo, {objeto => disparo.colisionarCon(objeto)})
+	}
 	
 	method  cargarColisionesNivelUno(){
 		
 		//ENEMIGOS
-		nivelUno.todosLosEnemigos().forEach{enemigo=>game.onCollideDo(enemigo,{objeto => enemigo.colisionarCon(objeto)})}
-		
+
 		//CORNELIO
-		game.onCollideDo(cornelio,{objeto => cornelio.colisionarCon(objeto)})
 	
 		// items Dinamicos
 		nivelUno.itemsDinamicos().forEach{item => game.onTick(item.tiempo(),"mover", {item.moverse()})

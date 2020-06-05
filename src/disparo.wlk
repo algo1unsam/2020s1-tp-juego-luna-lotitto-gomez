@@ -4,18 +4,17 @@ import wollok.game.*
 import Nivel.*
 import juego.*
 import frutilla.*
+import comandos.*
 
 class Disparo {
 
-	var property image = ""
+	var property image 
 	var property position
-	var property margenIzquierdo = 1
-	var property margenDerecho = 14
-	var property limiteInferior = 0
-	var property limiteSuperior = 9
-	var property sonidoDisparo = 0
-
-	// TODO: trucho
+	var property sonidoDisparo
+	var property direccion
+	method recibirDanio(disparo){
+		
+	}
 	method subirVitalidad(objeto) {
 	}
 
@@ -27,50 +26,54 @@ class Disparo {
 		sonidoDisparo.volume(0.1)
 		sonidoDisparo.play()
 		game.addVisual(self)
+		game.onTick(300, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
+		
+			
+		//game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
+	
 	}
+	
+	method moverse(orientacion) {
+		if (juego.puedeMoverse(orientacion) and game.hasVisual(self)) self.position(orientacion) else self.desaparecer()}
 
-	method moverDisparo()
+	
+	method moverDisparo() = direccion.mover(self)	
 
-	// TODO: revisar si es necesario especificar el objeto
-	method impactar()
+	method impactar(){}
 
-	method fueraDeEscena()
-
-	method desaparecer()
-
+	method desaparecer(){
+		sonidoDisparo.stop()
+		game.removeVisual(self)
+		game.removeTickEvent("mover disparo" + self.identity().toString())
+		
+	
+	}
+	method colisionarCon(objeto)
+	
 }
 
-class DisparoCornelio inherits Disparo {
-
-	method colisionarCon(objeto) {
-		// aca hay problemas cuando la bala choca con cornelio
-		//TODO: chequear
+class DisparoCornelio inherits Disparo{
+	
+	override method colisionarCon(objeto) {
+			
+			objeto.recibirDanio(self)
+			
 		
-		if (objeto == cornelio) {
-		} else {
-			objeto.recibirDanio()
-			self.desaparecer()
-		}
 	}
+	
+	//override method aparecer(){
+		//super()
+		//game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
+	//}
 
-	override method sonidoDisparo() {
-		sonidoDisparo = "disparoCornelio.mp3"
-	}
-
-	override method moverDisparo() {
-		if (!self.fueraDeEscena()) {
-			self.position(self.position().right(1))
-		} else {
-			self.desaparecer()
-		}
-	}
+	override method sonidoDisparo()  {sonidoDisparo = "disparoCornelio.mp3"}
+	
+		
 
 	override method desaparecer() {
-		cornelio.disparo(0)
-		game.removeVisual(self)
+		cornelio.hayDisparo(false)
+		super()
 	}
-
-	override method fueraDeEscena() = self.position().x() >= margenDerecho
 
 	method impactar(objeto) {
 		juego.nivel().enemigos1().remove(objeto)
@@ -79,85 +82,39 @@ class DisparoCornelio inherits Disparo {
 		game.removeVisual(objeto)
 	}
 
-	override method impactar() {
-	}
 
-}
+}  
+
 class DisparoCornelio2 inherits DisparoCornelio{
-	
-	override method moverDisparo() {
-		if (!self.fueraDeEscena()) {
-			self.position(self.position().up(1))
-		} else {
-			self.desaparecer()
-		}
-	}
-
-	override method fueraDeEscena() = self.position().y() >= limiteSuperior
-	
+	  override method direccion () = arriba
+		override method colisionarCon(objeto){}
 }
 
-class DisparoEnemigo inherits Disparo {
+class DisparoEnemigo inherits Disparo{
 
 	override method image() = "disparoEnemigo.png"
-
-	method colisionarCon(objeto) {
-		objeto.perderVitalidad()
-		self.desaparecer()
+	
+	
+	override method colisionarCon(objeto) {
+		cornelio.recibirDanio(disparo)
+		
 	}
 
 	override method sonidoDisparo() {
 		sonidoDisparo = "cornelioDisparo.mp3"
 	}
 
-	override method moverDisparo() {
-		if (game.hasVisual(self)) {
-			if (!self.fueraDeEscena()) {
-				self.position(self.position().left(1))
-			} else {
-				self.desaparecer()
-			}
-		}
-	}
-
-	method buscandoShooter() = juego.nivel().todosLosEnemigos().find{ enemigo => enemigo.disparo() == self }
-
-	method estoyCargado() = juego.nivel().todosLosEnemigos().any{ enemigo => enemigo.disparo() == self }
-
-	override method desaparecer() {
-		if (self.estoyCargado()) {
-			var shooter = self.buscandoShooter()
-			sonidoDisparo.stop()
-			shooter.disparo(0)
-				// tomamos '0' como pistola descargada 
-			game.removeVisual(self)
-		}
-	}
-
-	override method fueraDeEscena() = self.position().x() <= margenIzquierdo
-
 	override method impactar() {
 		self.desaparecer()
+	}
+	override method aparecer(){
+			super()
+			game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
+		
 	}
 
 }
 
 class DisparoEnemigo2 inherits DisparoEnemigo{
-
-	override method moverDisparo() {
-		if (game.hasVisual(self)) {
-			if (!self.fueraDeEscena()) {
-				self.position(self.position().down(1))
-			} else {
-				self.desaparecer()
-			}
-		}
-	}
-
-
-
-	override method fueraDeEscena() = self.position().y() <= limiteInferior
-	
-	
-	
+	override method colisionarCon(objeto){}
 }

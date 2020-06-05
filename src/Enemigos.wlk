@@ -9,7 +9,7 @@ import frutilla.*
 class Enemigo {
 
 	var property vitalidad = 0
-	var property disparo = 0
+	var property hayDisparo = false
 	var property image = "obrerosyroundup.png"
 	var property position
 	var property direccion = izquierda
@@ -18,15 +18,15 @@ class Enemigo {
 	method perderVitalidad(objeto) {
 	}
 
-	method recibirDanio() {
+	method recibirDanio(disparo) {
+		disparo.desaparecer()
 		self.desaparecer()
+		
 	}
 
 	method desaparecer() {
 	
-		if (self.disparo() != 0) {
-			game.removeVisual(self.disparo())
-		}
+	
 		juego.nivel().enemigos1().remove(self)
 		juego.nivel().enemigos2().remove(self)
 		juego.nivel().enemigos3().remove(self)
@@ -34,13 +34,13 @@ class Enemigo {
 		die.play()
 		game.removeVisual(self)
 	}
-
+		
 	method colisionarCon(objeto) {
 		// esto esta mal supongo
-		if (objeto == cornelio.disparo()) {
-			self.desaparecer()
-			objeto.desaparecer()
-		}
+		//if (objeto == cornelio.disparo()) {
+			//self.desaparecer()
+			//objeto.desaparecer()
+		//}
 	}
 
 	method caminar() {
@@ -48,54 +48,43 @@ class Enemigo {
 	}
 
 	method moverse(orientacion) {
-		if (self.puedeMoverse(orientacion)) {
+		if (juego.puedeMoverse(orientacion)) {
 			self.position(orientacion)
 		} else {
 			self.cambiarOrientacion()
 		}
 	}
-
-	method puedeMoverse(orientacion) {
-		return juego.margenes().all{ margen => orientacion.x() != margen }
-	}
-
+	
+	
+	
 	method cambiarOrientacion() {
-		if (direccion == izquierda) direccion = derecha else direccion = izquierda
+		direccion = direccion.opuesto()
 	}
 	
-	method devolverDisparo() = new DisparoEnemigo(sonidoDisparo = game.sound("disparoCornelio.mp3"), position = self.position())	
+	method devolverDisparo() = new DisparoEnemigo(direccion = izquierda,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = game.at(self.position().x() + 5,self.position().y()))	
 	
 	method disparar() {
 		
-		if (disparo == 0 and game.hasVisual(self) ) {
-			disparo = self.devolverDisparo()
-			disparo.aparecer()
-			disparo.moverDisparo()
+		if (!hayDisparo and game.hasVisual(self)) {
+			
+			(self.devolverDisparo()).aparecer()
+			
 		}
 	}
 
 	
-	method tenesDisparo() = disparo != 0
 	
-	method moverDisparo() {
-
-			if (game.hasVisual(disparo) and self.tenesDisparo())  disparo.moverDisparo()
-				
-		
-	}
-
-	// trucho
 	method subirVitalidad(objeto) {
 	}
 
 }
 class Enemigo2 inherits Enemigo {
 	
-	override method devolverDisparo() =  new DisparoEnemigo2(sonidoDisparo = game.sound("disparoCornelio.mp3"), position = self.position())
+	override method devolverDisparo() =  new DisparoEnemigo2(direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = self.position())
 	
-	override method puedeMoverse(orientacion) {
-		return orientacion.x().between(2,12) 
-	}
+//	override method puedeMoverse(orientacion) {
+	//	return orientacion.x().between(2,12) 
+	//}
 
 			
 }
