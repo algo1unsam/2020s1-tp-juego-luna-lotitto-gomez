@@ -17,7 +17,10 @@ class Enemigo {
 	// Lo entiende pero no hace nada 
 	method perderVitalidad(objeto) {
 	}
-
+	method recibirDisparo(disparo){
+		
+	}
+	
 	method recibirDanio(disparo) {
 		disparo.desaparecer()
 		self.desaparecer()
@@ -27,9 +30,7 @@ class Enemigo {
 	method desaparecer() {
 	
 	
-		juego.nivel().enemigos1().remove(self)
-		juego.nivel().enemigos2().remove(self)
-		juego.nivel().enemigos3().remove(self)
+		juego.nivel().todosLosEnemigos().remove(self)
 		const die = game.sound("explosion.wav")
 		die.play()
 		game.removeVisual(self)
@@ -61,7 +62,7 @@ class Enemigo {
 		direccion = direccion.opuesto()
 	}
 	
-	method devolverDisparo() = new DisparoEnemigo(direccion = izquierda,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = game.at(self.position().x() + 5,self.position().y()))	
+	method devolverDisparo() = new DisparoEnemigo(image = "disparoEnemigo.png",direccion = izquierda,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = game.at(self.position().x(),self.position().y()))	
 	
 	method disparar() {
 		
@@ -80,11 +81,20 @@ class Enemigo {
 }
 class Enemigo2 inherits Enemigo {
 	
-	override method devolverDisparo() =  new DisparoEnemigo2(direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = self.position())
+	override method devolverDisparo() =  new DisparoEnemigo2(image ="disparoEnemigo.png",direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = self.position())
 	
 //	override method puedeMoverse(orientacion) {
 	//	return orientacion.x().between(2,12) 
 	//}
 
 			
+}
+
+// esto deberia ir aca ? o en nivel?
+object posicionesEnemigos {
+	var property pos =[game.at(10,3),game.at(11,3),game.at(12,3),
+			   game.at(10,5),game.at(11,5),game.at(12,5),
+			   game.at(10,7),game.at(11,7),game.at(12,7)]
+
+	
 }

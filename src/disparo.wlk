@@ -12,6 +12,9 @@ class Disparo {
 	var property position
 	var property sonidoDisparo
 	var property direccion
+	method recibirDisparo(disparo){
+		
+	}
 	method recibirDanio(disparo){
 		
 	}
@@ -29,7 +32,7 @@ class Disparo {
 		game.onTick(300, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
 		
 			
-		//game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
+		game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
 	
 	}
 	
@@ -61,11 +64,6 @@ class DisparoCornelio inherits Disparo{
 		
 	}
 	
-	//override method aparecer(){
-		//super()
-		//game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
-	//}
-
 	override method sonidoDisparo()  {sonidoDisparo = "disparoCornelio.mp3"}
 	
 		
@@ -87,7 +85,17 @@ class DisparoCornelio inherits Disparo{
 
 class DisparoCornelio2 inherits DisparoCornelio{
 	  override method direccion () = arriba
-		override method colisionarCon(objeto){}
+	  
+}
+class DisparoEspecial inherits DisparoCornelio2{
+	override method image() = "disparoEnemigo.png"//antidoto
+	
+	override method colisionarCon(objeto) {
+			
+			objeto.recibirDisparoEspecial(self)
+			
+		
+	}	
 }
 
 class DisparoEnemigo inherits Disparo{
@@ -96,7 +104,7 @@ class DisparoEnemigo inherits Disparo{
 	
 	
 	override method colisionarCon(objeto) {
-		cornelio.recibirDanio(disparo)
+		objeto.recibirDisparo(self)
 		
 	}
 
@@ -107,14 +115,28 @@ class DisparoEnemigo inherits Disparo{
 	override method impactar() {
 		self.desaparecer()
 	}
-	override method aparecer(){
-			super()
-			game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
-		
-	}
+
 
 }
 
 class DisparoEnemigo2 inherits DisparoEnemigo{
-	override method colisionarCon(objeto){}
+	
+
+		
+
+}
+
+
+class DisparoEnemigo3 inherits DisparoEnemigo{
+		override method aparecer() {
+		game.sound(sonidoDisparo)
+		sonidoDisparo.volume(0.1)
+		sonidoDisparo.play()
+		game.addVisual(self)
+		game.onTick(20, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
+		
+			
+		game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
+	
+	}
 }

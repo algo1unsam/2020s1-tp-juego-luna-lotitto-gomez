@@ -22,6 +22,7 @@ class Pantalla {
 
 	
 }
+
 object pantallaInicial  inherits Pantalla{
 	override method image () = "pantallaInicial.png"
 	override method cargar () {
@@ -31,7 +32,7 @@ object pantallaInicial  inherits Pantalla{
 		game.onTick(200,"cambiarImagen",{pressStart.cambiarImagen()})
 		keyboard.enter().onPressDo{ 
 			// consultar si hace falta borrar imagenes
-			juego.cambiarNivel(nivelUno)	
+			juego.cambiarNivel(nivelTres)	
 			game.removeVisual(pressStart)
 			game.removeVisual(self)
 			game.clear()

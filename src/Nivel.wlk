@@ -14,18 +14,17 @@ class Nivel {
 
 	var property itemsDinamicos = []
 	var property itemsEstaticos = []
-	var property enemigos1 = []
-	var property enemigos2 = []
-	var property enemigos3 = []
 	var property position = game.at(0, 0)
 	var property siguienteNivel = 0
 	var property theme = ""
-	var property disparo
+	var property todosLosEnemigos = []
+	
+
+	
 
 	method image() = ""
 
 	method get_objects() = game.allVisuals()
-
 	method cargarItems() {
 		if (!itemsDinamicos.isEmpty()) itemsDinamicos.forEach{ item => game.addVisual(item) }
 		if (!itemsEstaticos.isEmpty()) itemsEstaticos.forEach{ item => game.addVisual(item) }
@@ -36,7 +35,6 @@ class Nivel {
 	}
 
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	method todosLosEnemigos() = enemigos1 + enemigos2 + enemigos3
 
 	method cargarEnemigos() {
 		self.todosLosEnemigos().forEach{ enemigo => game.addVisual(enemigo)}
@@ -48,9 +46,13 @@ class Nivel {
 		} else {
 			theme.play()
 		}
-		theme.volume(0.2)
+		theme.volume(0.01)
 		theme.shouldLoop(true)
 	}
+		method recibirDisparo(disparo){
+		
+	}
+	
 
 	method cargar() {
 		game.addVisual(self)
@@ -59,20 +61,22 @@ class Nivel {
 		game.addVisual(cornelio)
 		game.showAttributes(cornelio)
 		self.cargarEnemigos()
-			// TODO: agregar power ups?, palanca?, items de ayuda?
 		self.cargarCondiciones()
 		comandos.cargar()
 	}
 
 	method cargarCondiciones() {
+
 		self.todosLosEnemigos().forEach{ enemigo =>
 			game.onTick(500, "caminar", { enemigo.caminar()})
 			game.onTick(1000, "disparar", { enemigo.disparar()})
-			//game.onTick(200, "moverDisparo", { enemigo.moverDisparo()})
+			
 		}
-		//game.onTick(300, "mover disparo cornelio", { cornelio.moverDisparo()})
+		//TODO: actualizar imagen, fede dibujalo
+		//game.onTick(0,"actualizar imagen",cornelio.actualizarImagen())
 		game.onTick(0, "finalizar juego", { self.validarFinal()})
 		game.onTick(0, "morir", { self.perder()})
+		//game.onTick(0,"actualizar cornelio",{cornelio.actualizarImagen()})		
 	}
 
 	method validarFinal() {
@@ -86,32 +90,25 @@ class Nivel {
 	}
 
 	method perder() {
-		if (cornelio.vitalidad() == 0) {
+		if (cornelio.estaMuerto()) {
 			theme.pause()
 			game.clear()
-				// poner sonido de game over
 			gameOver.cargar()
 		}
 	}
 
 	method restart() {
-		//TODO: hacer lista de objetos para hacerle restart, si ? 
-		cornelio.hayDisparo(false)
-		cornelio.vitalidad(100)
-		cornelio.position(new Position(x = 0, y = 3))
-		enemigos1.clear()
-		enemigos2.clear()
-		enemigos3.clear()
-		palanca.alta(true)
+		cornelio.restart()
+		todosLosEnemigos.clear()
+		
 	}
-
-	method devolverDisparo()
-	method recibirDanio(disparo){}
+	method devolverDisparo() = 0
+	
 }
 
 object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), siguienteNivel = nivelDos, itemsEstaticos = [ palanca ], itemsDinamicos = [ cafiaspirina ]) {
-
-	override method devolverDisparo() = new DisparoCornelio(direccion = derecha,image = "grano.png", position = game.at(cornelio.position().x() + 1,cornelio.position().y()), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+	
+	override method devolverDisparo() = new DisparoCornelio(direccion = derecha,image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 
 	override method image() = "nivel1-fondo.png"
 
@@ -120,9 +117,7 @@ object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"
 	}
 
 	override method cargarEnemigos() {
-		3.times{ i => enemigos1.add(new Enemigo(position = game.at(10 + i, 0)))}
-		3.times{ i => enemigos2.add(new Enemigo(position = game.at(10 + i, 4)))}
-		3.times{ i => enemigos3.add(new Enemigo(position = game.at(10 + i, 7)))}
+		8.times{ i => todosLosEnemigos.add(new Enemigo(position = posicionesEnemigos.pos().get(i)))}
 		super()
 	}
 
@@ -131,34 +126,69 @@ object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"
 		super()
 		arbitro.cargarColisionesNivelUno()
 	}
+	override method restart(){
+		super()
+		palanca.alta(true)
+	}
 
 }
 
-object nivelDos inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), itemsEstaticos = [  ], itemsDinamicos = [ cafiaspirina ]) {
+object nivelDos inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), itemsEstaticos = [  ],siguienteNivel = nivelTres, itemsDinamicos = [ cafiaspirina ]) {
 			
-			var frutilla = new Enemigo2(image ="straw.png",position = game.at(5,8))
+	var property boss = new Frutilla(image ="straw.png", position = game.at(3,8))
 	
-	override method devolverDisparo() = new DisparoCornelio2(direccion = arriba,image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
-
+	override method devolverDisparo() {
+	return	if (!game.hasVisual(antidoto) and boss.estoySola()){
+			new DisparoEspecial(direccion = arriba, position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+		}else{new DisparoCornelio2(direccion = arriba,image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))}
+	} 
+	
 	override method image() = "nivel2-fondo.jpeg"
 
 	override method cargarEnemigos() {
-		1.times({ i => enemigos1.add(new Enemigo2(image = "Enem1L.png", position = game.at(1 + i, 4 + i)))})
-		1.times({ i => enemigos2.add(new Enemigo2(image = "Enem1L.png", position = game.at(1 + i, 4 + i)))})
-		1.times({ i => enemigos3.add(new Enemigo2(image = "Enem1L.png", position = game.at(1 + i, 4 + i)))})
-		enemigos2.add(new Frutilla(image ="straw.png", position = game.at(3,8)))
+		8.times({ i => todosLosEnemigos.add(new Enemigo2(image = "Enem1L.png", position = posicionesEnemigos.pos().get(i)))})
+		todosLosEnemigos.add(boss)
 		super()
 	}
 	
+
 	override method cargar() {
 		
 		super()
 		arbitro.cargarColisionesNivelDos()
 	}
-	
 	override method cargarCondiciones(){
-		super()	
+		super()
+		game.onTick(0,"frutilla sola",{boss.mutar()})
+	}
+	override method validarFinal(){
+		if (self.todosLosEnemigos().isEmpty()) self.finalizar()
 	}
 
 }
 
+object nivelTres inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), siguienteNivel = nivelUno){
+	
+	var property boss  = new Boss(image ="straw.png", position = game.at(1,6))
+	
+	override method devolverDisparo() = new DisparoCornelio2(direccion = arriba,image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+
+	override method cargarEnemigos(){
+		todosLosEnemigos.add(boss)
+		super()
+	}
+	
+
+	override method image() = "nivel1-fondo.png" 
+	override method validarFinal(){
+		if (boss.estaMuerto()) self.finalizar()
+	}
+}
+
+object nivelCuatro inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), siguienteNivel = nivelCuatro){
+//	var property boss
+//	override method cargarEnemigos(){
+//		todosLosEnemigos.add(boss)
+//		super()
+//	}
+}

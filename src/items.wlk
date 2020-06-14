@@ -2,6 +2,12 @@ import wollok.game.*
 class Item {
 	var property position
 	var property image 
+	method recibirDanio(disparo){
+		
+	}
+	method recibirDisparo(disparo){
+		
+	}
 	
 	method subirVitalidad(objeto){
 		
@@ -30,7 +36,7 @@ class ItemDinamico inherits Item{
 
 class ItemEstatico inherits Item{
 		
-}
+} 
 
-
+const antidoto = new Item(position = new Position(x =3,y =4 ),image = "grano.png")
 const cafiaspirina = new ItemDinamico(tiempo = 3000,position = new Position(x =0,y =4 ),image = "bayer.png")

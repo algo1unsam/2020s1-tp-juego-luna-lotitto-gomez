@@ -14,7 +14,7 @@ object arbitro {
 	
 	method validarDisparo(disparo){
 		
-		game.onCollide(disparo, {objeto => disparo.colisionarCon(objeto)})
+		game.onCollideDo(disparo, {objeto => disparo.colisionarCon(objeto)})
 	}
 	
 	method  cargarColisionesNivelUno(){
@@ -37,11 +37,9 @@ object arbitro {
 	
 	method  cargarColisionesNivelDos(){
 		
-		//ENEMIGOS
-		nivelDos.todosLosEnemigos().forEach{enemigo=>game.onCollideDo(enemigo,{objeto => enemigo.colisionarCon(objeto)})}
-		
+				
 		//CORNELIO
-		game.onCollideDo(cornelio,{objeto => cornelio.colisionarCon(objeto)})
+		game.onCollideDo(cornelio,{objeto => cornelio.colisionaCon(objeto)})
 	
 		// items Dinamicos
 		nivelDos.itemsDinamicos().forEach{item => game.onTick(item.tiempo(),"mover", {item.moverse()})
