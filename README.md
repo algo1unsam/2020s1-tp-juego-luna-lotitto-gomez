@@ -20,7 +20,7 @@ condiciones específicas), en caso tal el jugador principal tendrá notificació
 
 
 -----------------
-Federico Lotitto
-Agustin Luna
-Leandro Gomez  |
+|Federico Lotitto|
+|Agustin Luna|
+|Leandro Gomez  |
 ---------------
