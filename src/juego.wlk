@@ -6,8 +6,8 @@ import pantallaInicial.*
 object juego {
 
 	var property nivel = pantallaInicial
-	const property limites = [-1,10]
-	const property margenes = [-1,15]
+	const property limites = [0,10]
+	const property margenes = [0,15]
 	
 	method cargar() {
 		nivel.cargar()

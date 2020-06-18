@@ -6,9 +6,9 @@ import disparo.*
 import comandos.*
 import items.*
 
-class Frutilla inherits Enemigo2{
+class Frutilla inherits Enemigo{
 	
-	override method devolverDisparo() = new DisparoEnemigo2(direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"),image = 'disparoEnemigo.png', position = self.position())
+	override method devolverDisparo() = new DisparoEnemigo(velocidad = 300,direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"),image = "disparofrutilla.png", position = self.position())
 	
 	override method colisionarCon(objeto) {
 		
@@ -16,10 +16,20 @@ class Frutilla inherits Enemigo2{
     override method recibirDanio(disparo) {
 		
 	}
+	override method disparar() {
+		if (!hayDisparo and game.hasVisual(self)) {
+			(self.devolverDisparo()).aparecer()
+		}
+	}
 
 	method recibirDisparoEspecial(disparo){
 		disparo.desaparecer()
-		self.desaparecer()
+		//self.desaparecer()
+		self.image("frutillacurada.png")
+		game.removeTickEvent("caminar")
+		game.removeTickEvent("disparar")
+		game.say(self, "GRACIAS POR SALVARME! <3")
+		game.onTick(2000,"desaparecer", {self.desaparecer()})
 	}
 	method mutar(){
 		if(self.estoySola()){
@@ -31,22 +41,23 @@ class Frutilla inherits Enemigo2{
 	method estoySola() = juego.nivel().todosLosEnemigos().size() == 1
 }
 
-class Boss inherits Enemigo2{
-	//TODO: cambiar disparo
-	var property vitalidad = 10
+class Boss inherits Enemigo{
+
+	var property _vitalidad = 200
 	
-	override method devolverDisparo() = new DisparoEnemigo3(direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"),image = 'disparoEnemigo.png', position = self.position())
-	
-	method estaMuerto() = vitalidad == 0 
+		
+	method estaMuerto() = _vitalidad == 0 
 	
 	method bajarVitalidad(){
-		vitalidad = 0.max(vitalidad - 10)
+		_vitalidad = 0.max(_vitalidad - 10)
 	
 	}
+	
 	override method recibirDanio(disparo) {
 		self.bajarVitalidad()
 		disparo.desaparecer()
-		game.say(self, vitalidad.toString())
+		game.say(self, _vitalidad.toString())
 	}
+	
 		
 }

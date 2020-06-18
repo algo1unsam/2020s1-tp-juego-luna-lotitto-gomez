@@ -1,0 +1,45 @@
+import wollok.game.*
+import cornelio.*
+import comandos.*
+import arbitro.*
+import disparo.*
+import Enemigos.*
+import frutilla.*
+import items.*
+import juego.*
+import Nivel.*
+import palanca.*
+import pantallaInicial.*
+
+describe "Test general del game"
+{
+	var shot 
+	fixture{
+		 shot = new DisparoEnemigo(velocidad = 300,image ="disparoEnemigo2.png",direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"), position = game.at(3,2))
+	}
+	
+	test"Cornelio cambia de imagen"
+	{
+		cornelio.vitalidad(71)
+		cornelio.actualizarImagen()
+		assert.equals("corneliopower.png",cornelio.image())
+		cornelio.perderVitalidad()
+		cornelio.actualizarImagen()
+		assert.equals("cornelionormal1.png",cornelio.image())
+		cornelio.vitalidad(10)
+		cornelio.actualizarImagen()
+		assert.equals("cornelioenfermo.png",cornelio.image())
+	}	
+	
+	test"palanca alta y lista de enemigos vacia, finalizan el nivel"{
+		
+		palanca.alta(false)//bajo la palanca
+		
+		assert.throwsException({nivelUno.validarFinal()})
+		
+		
+		
+	}
+	
+	
+}

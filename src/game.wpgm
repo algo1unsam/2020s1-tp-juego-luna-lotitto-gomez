@@ -1,17 +1,14 @@
 import wollok.game.*
 import juego.*
-import Enemigos.* 
+import Enemigos.*  
 import Nivel.*
 import cornelio.*
 import frutilla.*
-//TODO: imagenes: semillas frutillas, nivel3, nivel final
-//TODO: cambio de aspecto en frutilla, + grande
-//TODO: sonido : nivel2 theme, metal
-//TODO: game.say(frutilla, "gracias x salvarme <3") 
-//TODO: hacer cambio de aspecto de cornelio -----composicion-- cambios de estado
-//TODO: HACER CLASE BOSS
-//TODO: LIMPIAR MODELO DE DISPARO Y ENEMIGOS
- 
+
+//TODO: imagenes: nivel3, nivel final
+//TODO: sonido : nivel2 theme, metal 
+//TODO: NO SE AGREGAN LOS COLLIDES DE LOS ITEMS NIVELCUATRo
+//TODO: robar con tests 
 
  
 program game 
@@ -22,9 +19,7 @@ program game
 	
 	 //INICIO
 	juego.cargar()
-	
-	 
-	 
+
 	game.start()
 	
 }

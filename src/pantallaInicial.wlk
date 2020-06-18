@@ -1,83 +1,102 @@
 import juego.*
 import Nivel.*
 import wollok.game.*
-import  cornelio.*
+import cornelio.*
 
 class Pantalla {
-	var property position = new Position(x=0,y=0)
+
+	var property position = new Position(x = 0, y = 0)
 	var property image = "Untitled.png"
 
 	method cargar() {
-		
-		game.addVisual(self)		
-		
-		keyboard.enter().onPressDo{ 
-			
-			
-			juego.cargar()
-		
-		}
+		game.addVisual(self)
+		keyboard.enter().onPressDo{ juego.cargar()}
 	}
 
-
-	
 }
 
-object pantallaInicial  inherits Pantalla{
-	override method image () = "pantallaInicial.png"
-	override method cargar () {
-		
-		game.addVisual(self)		
+object pantallaInicial inherits Pantalla {
+
+	override method image() = "pantallaInicial.png"
+
+	override method cargar() {
+		game.addVisual(self)
 		game.addVisual(pressStart)
-		game.onTick(200,"cambiarImagen",{pressStart.cambiarImagen()})
-		keyboard.enter().onPressDo{ 
-			// consultar si hace falta borrar imagenes
-			juego.cambiarNivel(nivelTres)	
+		game.onTick(200, "cambiarImagen", { pressStart.cambiarImagen()})
+		keyboard.enter().onPressDo{ // consultar si hace falta borrar imagenes
+			juego.cambiarNivel(nivelCuatro)
 			game.removeVisual(pressStart)
 			game.removeVisual(self)
 			game.clear()
 			juego.cargar()
+		}
+	}
+
+}
+
+object pantallaFinal inherits Pantalla {
+
+	override method image() = "pantallaInicial.png"
+
+	override method cargar() {
+		game.addVisual(self)
+		keyboard.enter().onPressDo{ 
+			game.onTick(5000, "chau", { game.stop()})
+		}
 		
 	}
-}
-}
-object pressStart inherits Pantalla(image = "pressStart.png",position = game.at(9,6)){
-	method cambiarImagen(){
-		return if(image == "pressStart.png"){image ="pressStart2.png"}else{image ="pressStart.png"}
-	}	
+
 }
 
-object gameOver inherits Pantalla{
-	
+object pressStart inherits Pantalla(image = "pressStart.png", position = game.at(9, 6)) {
+
+	method cambiarImagen() {
+		return if (image == "pressStart.png") {
+			image = "pressStart2.png"
+		} else {
+			image = "pressStart.png"
+		}
+	}
+
+}
+
+object gameOver inherits Pantalla {
+
 	var property theme = game.sound("gameOverTheme.mp3")
-	
-	override method image ()= "gameOver.png"
-	
-	override method cargar() {
-		if (theme.paused()){theme.resume()}else{theme.play()}
-		
-		game.addVisual(self)
-		game.addVisual(new Pantalla(image ="gameOver2.png",position = game.at(1,6)))		
-		game.addVisual(pressStartChico)
-		
-		game.onTick(200,"cambiarImagen",{pressStartChico.cambiarImagen()})
 
-		keyboard.enter().onPressDo{ 
-			// funciona?
+	override method image() = "gameOver.png"
+
+	override method cargar() {
+		if (theme.paused()) {
+			theme.resume()
+		} else {
+			theme.play()
+		}
+		game.addVisual(self)
+		game.addVisual(new Pantalla(image = "gameOver2.png", position = game.at(1, 6)))
+		game.addVisual(pressStartChico)
+		game.onTick(200, "cambiarImagen", { pressStartChico.cambiarImagen()})
+		keyboard.enter().onPressDo{ // funciona?
 			theme.pause()
 			game.removeVisual(pressStartChico)
 			game.removeVisual(self)
-					juego.restart()
-					}
-		
+			juego.restart()
+		}
 	}
+
 }
 
-object pressStartChico inherits Pantalla(image ="pressStartChico.png"){
+object pressStartChico inherits Pantalla(image = "pressStartChico.png") {
 
-	override method position () = game.at(1,3)
-	
-	method cambiarImagen(){
-		return if(image == "pressStartChico.png"){image ="pressStartChico2.png"}else{image ="pressStartChico.png"}
+	override method position() = game.at(1, 3)
+
+	method cambiarImagen() {
+		return if (image == "pressStartChico.png") {
+			image = "pressStartChico2.png"
+		} else {
+			image = "pressStartChico.png"
+		}
 	}
+
 }
+

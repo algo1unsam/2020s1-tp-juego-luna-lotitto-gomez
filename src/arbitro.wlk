@@ -49,6 +49,10 @@ object arbitro {
 		
 		
 	}
+	method cargarColisionesNivelCuatro(){
+		nivelCuatro.itemsEstaticos().forEach{itemx => game.onCollideDo(itemx, {obj => itemx.colisionarCon(obj)})}
+	}
+	
 
 }
 

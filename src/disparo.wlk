@@ -12,6 +12,9 @@ class Disparo {
 	var property position
 	var property sonidoDisparo
 	var property direccion
+	var property velocidad
+	
+	method perderVitalidad(){}
 	method recibirDisparo(disparo){
 		
 	}
@@ -29,7 +32,7 @@ class Disparo {
 		sonidoDisparo.volume(0.1)
 		sonidoDisparo.play()
 		game.addVisual(self)
-		game.onTick(300, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
+		game.onTick(velocidad, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
 		
 			
 		game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
@@ -74,21 +77,14 @@ class DisparoCornelio inherits Disparo{
 	}
 
 	method impactar(objeto) {
-		juego.nivel().enemigos1().remove(objeto)
-		juego.nivel().enemigos2().remove(objeto)
-		juego.nivel().enemigos3().remove(objeto)
+		juego.nivel().todosLosEnemigos().remove(objeto)
 		game.removeVisual(objeto)
 	}
 
 
 }  
 
-class DisparoCornelio2 inherits DisparoCornelio{
-	  override method direccion () = arriba
-	  
-}
-class DisparoEspecial inherits DisparoCornelio2{
-	override method image() = "disparoEnemigo.png"//antidoto
+class DisparoEspecial inherits DisparoCornelio{
 	
 	override method colisionarCon(objeto) {
 			
@@ -99,9 +95,6 @@ class DisparoEspecial inherits DisparoCornelio2{
 }
 
 class DisparoEnemigo inherits Disparo{
-
-	override method image() = "disparoEnemigo.png"
-	
 	
 	override method colisionarCon(objeto) {
 		objeto.recibirDisparo(self)
@@ -119,24 +112,3 @@ class DisparoEnemigo inherits Disparo{
 
 }
 
-class DisparoEnemigo2 inherits DisparoEnemigo{
-	
-
-		
-
-}
-
-
-class DisparoEnemigo3 inherits DisparoEnemigo{
-		override method aparecer() {
-		game.sound(sonidoDisparo)
-		sonidoDisparo.volume(0.1)
-		sonidoDisparo.play()
-		game.addVisual(self)
-		game.onTick(20, "mover disparo" + self.identity().toString(), { self.moverDisparo()})
-		
-			
-		game.onCollideDo(self, {objeto => self.colisionarCon(objeto)})
-	
-	}
-}

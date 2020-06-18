@@ -35,8 +35,12 @@ class ItemDinamico inherits Item{
 }
 
 class ItemEstatico inherits Item{
-		
+	
+	override method colisionarCon(objeto){
+		objeto.perderVitalidad()	
+	}
+
 } 
 
-const antidoto = new Item(position = new Position(x =3,y =4 ),image = "grano.png")
+const antidoto = new Item(position = new Position(x =3,y =4 ),image = "antidoto.png")
 const cafiaspirina = new ItemDinamico(tiempo = 3000,position = new Position(x =0,y =4 ),image = "bayer.png")

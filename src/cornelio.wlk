@@ -2,16 +2,21 @@ import disparo.*
 import wollok.game.*
 import juego.*
 import items.*
+
 object cornelio {
 
 	var property position = new Position(x = 0, y = 3)
-	var property vitalidad = 3000000
+	var property vitalidad = 30000
 	var property hayDisparo = false 
-	var property image = "cornelioNormal1.png"
+	var property estado  = normal
+	var property image = "cornelionormal1.png"
+	
 	
 	method estaMuerto()  = vitalidad == 0
+	
 	method disparar() {
 		if (!hayDisparo) {
+				hayDisparo = true
 				
 				(juego.nivel().devolverDisparo()).aparecer()
 		}
@@ -35,6 +40,7 @@ object cornelio {
 	}
 
 	method perderVitalidad() {
+		game.say(self, {"OUCH!"})
 		vitalidad = 0.max(vitalidad - 10)
 	}
 
@@ -54,13 +60,13 @@ object cornelio {
 		self.position(new Position(x = 0, y = 3))
 	}
 	
-//	method actualizarImagen(){
-//		if(vitalidad > 70){
-//			self.image("")
-//		}else(vitalidad.between(10, 70)){
-//			self.image("")
-//		}else{self.image("")}
-//	}
+	method actualizarImagen(){
+		if(vitalidad >= 70){
+			self.image("corneliopower.png")
+		}else if(vitalidad.between(30, 70)){
+			self.image(normal.image())
+		}else{ self.image(enfermo.image())}
+	}
 
 }
 
@@ -68,19 +74,19 @@ object cornelio {
 
 object normal {
 
-	method image() = ""
+	method image() = "cornelionormal1.png"
 
 }
 
 object poderoso {
 
-	method image() = ""
+	method image() = "corneliopower.png"
 
 }
 
 object enfermo {
 
-	method image() = ""
+	method image() = "cornelioenfermo.png"
 
 }
 
