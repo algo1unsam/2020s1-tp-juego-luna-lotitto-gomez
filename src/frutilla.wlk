@@ -43,7 +43,7 @@ class Frutilla inherits Enemigo{
 
 class Boss inherits Enemigo{
 
-	var property _vitalidad = 1
+	var property _vitalidad = 200
 	
 		
 	method estaMuerto() = _vitalidad == 0 

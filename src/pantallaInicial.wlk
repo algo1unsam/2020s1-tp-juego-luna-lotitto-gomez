@@ -24,7 +24,7 @@ object pantallaInicial inherits Pantalla {
 		game.addVisual(pressStart)
 		game.onTick(200, "cambiarImagen", { pressStart.cambiarImagen()})
 		keyboard.enter().onPressDo{ // consultar si hace falta borrar imagenes
-			juego.cambiarNivel(nivelCuatro)
+			juego.cambiarNivel(nivelUno)
 			game.removeVisual(pressStart)
 			game.removeVisual(self)
 			game.clear()
@@ -40,6 +40,7 @@ object pantallaFinal inherits Pantalla {
 
 	override method cargar() {
 		game.addVisual(self)
+		game.addVisual(new Pantalla(image = "mensajefinal.png",position = game.at(6,6)))
 		keyboard.enter().onPressDo{
  
 			game.onTick(2000, "chau", { game.stop()})

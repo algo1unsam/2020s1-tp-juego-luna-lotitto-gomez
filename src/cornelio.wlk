@@ -6,7 +6,7 @@ import items.*
 object cornelio {
 
 	var property position = new Position(x = 0, y = 3)
-	var property vitalidad = 75000
+	var property vitalidad = 60
 	var property hayDisparo = false 
 	var property estado  = normal
 	var property image = "cornelionormal1.png"
