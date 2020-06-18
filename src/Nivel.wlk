@@ -47,7 +47,7 @@ class Nivel {
 		} else {
 			theme.play()
 		}
-		theme.volume(0.01)
+		theme.volume(0.5)
 		theme.shouldLoop(true)
 	}
 

@@ -24,7 +24,7 @@ object pantallaInicial inherits Pantalla {
 		game.addVisual(pressStart)
 		game.onTick(200, "cambiarImagen", { pressStart.cambiarImagen()})
 		keyboard.enter().onPressDo{ // consultar si hace falta borrar imagenes
-			juego.cambiarNivel(nivelCuatro)
+			juego.cambiarNivel(nivelUno)
 			game.removeVisual(pressStart)
 			game.removeVisual(self)
 			game.clear()
