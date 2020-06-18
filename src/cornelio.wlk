@@ -6,7 +6,7 @@ import items.*
 object cornelio {
 
 	var property position = new Position(x = 0, y = 3)
-	var property vitalidad = 30000
+	var property vitalidad = 75
 	var property hayDisparo = false 
 	var property estado  = normal
 	var property image = "cornelionormal1.png"
@@ -40,7 +40,7 @@ object cornelio {
 	}
 
 	method perderVitalidad() {
-		game.say(self, {"OUCH!"})
+		game.say(self, "OUCH!")
 		vitalidad = 0.max(vitalidad - 10)
 	}
 

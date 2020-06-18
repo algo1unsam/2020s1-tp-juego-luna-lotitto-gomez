@@ -17,7 +17,7 @@ class Pantalla {
 
 object pantallaInicial inherits Pantalla {
 
-	override method image() = "pantallaInicial.png"
+	override method image() = "pantallainicial.png"
 
 	override method cargar() {
 		game.addVisual(self)
@@ -36,12 +36,13 @@ object pantallaInicial inherits Pantalla {
 
 object pantallaFinal inherits Pantalla {
 
-	override method image() = "pantallaInicial.png"
+	override method image() = "pantallafinal.png"
 
 	override method cargar() {
 		game.addVisual(self)
-		keyboard.enter().onPressDo{ 
-			game.onTick(5000, "chau", { game.stop()})
+		keyboard.enter().onPressDo{
+ 
+			game.onTick(2000, "chau", { game.stop()})
 		}
 		
 	}

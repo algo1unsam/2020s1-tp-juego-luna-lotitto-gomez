@@ -197,8 +197,8 @@ object nivelCuatro inherits Nivel(theme = game.sound("CorneliusGameNivel4Theme.m
 
 	override method devolverDisparo() = new DisparoCornelio(velocidad = 300, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 	override method devolverDisparoEnemigo(_position) =new DisparoEnemigo(velocidad = 300, image = "disparosubjefelisto.png", direccion = abajo, sonidoDisparo = game.sound("disparoCornelio.mp3"), position = _position)
-	override method image() = "nivel1-fondo.png"
-
+	override method image() = "nivel4-fondo.png"
+	
 	override method cargarEnemigos() {
 		todosLosEnemigos.add(boss)
 		
