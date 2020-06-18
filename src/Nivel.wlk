@@ -105,7 +105,7 @@ class Nivel {
 
 object nivelUno inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), siguienteNivel = nivelDos, itemsEstaticos = [ palanca ], itemsDinamicos = [ cafiaspirina ]) {
 
-	override method devolverDisparo() = new DisparoCornelio(velocidad = 300, direccion = derecha, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+	override method devolverDisparo() = new DisparoCornelio(velocidad = 200, direccion = derecha, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 	
 	override method devolverDisparoEnemigo(_position) = new DisparoEnemigo(velocidad = 300, image = "disparoEnemigo.png", direccion = izquierda, sonidoDisparo = game.sound("disparoCornelio.mp3"), position = game.at(_position.x(), _position.y()))
 	
@@ -140,9 +140,9 @@ object nivelDos inherits Nivel(theme = game.sound("CorneliusGameNivel2Theme.mp3"
 	
 	override method devolverDisparo() {
 		return if (!game.hasVisual(antidoto) and boss.estoySola()) {
-			new DisparoEspecial(velocidad = 300, image = "disparoespecial.png", direccion = arriba, position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+			new DisparoEspecial(velocidad = 200, image = "disparoespecial.png", direccion = arriba, position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 		} else {
-			new DisparoCornelio(velocidad = 300, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+			new DisparoCornelio(velocidad = 200, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 		}
 	}
 
@@ -170,14 +170,14 @@ object nivelDos inherits Nivel(theme = game.sound("CorneliusGameNivel2Theme.mp3"
 
 }
 
-object nivelTres inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3"), siguienteNivel = nivelCuatro) {
+object nivelTres inherits Nivel(theme = game.sound("CorneliusGameNivel3Theme.mp3"), siguienteNivel = nivelCuatro) {
 
 	var property boss = new Boss(image = "subjefederecha.png", position = game.at(1, 6))
 	
 	override method image() = "nivel3-fondo.png"
 	override method devolverDisparoEnemigo(_position) =new DisparoEnemigo(velocidad = 20,direccion = abajo,sonidoDisparo = game.sound("disparoCornelio.mp3"),image = 'disparosubjefelisto.png', position = _position)
 
-	override method devolverDisparo() = new DisparoCornelio(velocidad = 300, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+	override method devolverDisparo() = new DisparoCornelio(velocidad = 200, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 	
 	override method cargarEnemigos() {
 		todosLosEnemigos.add(boss)
@@ -193,9 +193,9 @@ object nivelTres inherits Nivel(theme = game.sound("CorneliusGameNivel1Theme.mp3
 
 object nivelCuatro inherits Nivel(theme = game.sound("CorneliusGameNivel4Theme.mp3"), siguienteNivel = nivelUno) {
 
-	var property boss = new Boss(image = "subjefederecha.png", position = game.at(1, 6))
+	var property boss = new Boss(image = "jefe.png", position = game.at(1, 6))
 
-	override method devolverDisparo() = new DisparoCornelio(velocidad = 300, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
+	override method devolverDisparo() = new DisparoCornelio(velocidad = 150, direccion = arriba, image = "grano.png", position = cornelio.position(), sonidoDisparo = game.sound("disparoCornelio.mp3"))
 	override method devolverDisparoEnemigo(_position) =new DisparoEnemigo(velocidad = 300, image = "disparosubjefelisto.png", direccion = abajo, sonidoDisparo = game.sound("disparoCornelio.mp3"), position = _position)
 	override method image() = "nivel4-fondo.png"
 	
